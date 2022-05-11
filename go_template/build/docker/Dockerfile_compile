@@ -1,0 +1,25 @@
+FROM ubuntu
+
+RUN mkdir /app
+WORKDIR /app
+
+# install calls
+RUN apt update -y --fix-missing
+RUN apt install build-essential curl wget tar make -y
+RUN wget https://go.dev/dl/go1.17.5.linux-amd64.tar.gz -O /go.tar.gz
+RUN tar -C /usr/local -xzf /go.tar.gz
+
+#add to root 
+RUN echo "export PATH=$PATH:/usr/local/go/bin" >> /root/.profile
+RUN ln -s /usr/local/go/bin/go /usr/bin/go
+
+# ports 
+EXPOSE 80
+EXPOSE 81
+EXPOSE 82
+
+#volume
+VOLUME [ "/app" ]
+
+#bash shell
+CMD ["/bin/bash"]

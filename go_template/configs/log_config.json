@@ -1,0 +1,16 @@
+{
+    "level": "debug",
+    "encoding": "console",
+    "outputPaths": ["stdout", "./bin/logs/log.txt"],
+    "errorOutputPaths": ["stderr"],
+    "initialFields": {},
+    "encoderConfig": {
+      "messageKey": "message",
+      "levelKey": "level",
+      "levelEncoder": "lowercasecolor",
+      "timeKey": "time",
+      "timeEncoder": "rfc3339",
+      "StacktraceKey": "stack",
+      "lineEnding": "\n"
+    }
+}

@@ -1,0 +1,5 @@
+common:
+  log:
+    #configFileName could be absolute or relative path
+    configFileName: "./bin/log_config.json" 
+

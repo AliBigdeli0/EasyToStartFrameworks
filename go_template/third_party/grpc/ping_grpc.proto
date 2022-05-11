@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+option go_package = "./";
+
+package data;
+
+service TestSend {
+  rpc SendMessage (TestRequest) returns (TestReply) {}
+}
+
+message TestRequest {
+  string name = 1;
+}
+
+message TestReply {
+  string message = 1;
+}

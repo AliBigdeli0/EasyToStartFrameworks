@@ -1,0 +1,31 @@
+version: '2.0'
+
+services:
+###############
+#nginx
+  nginx:
+      image: nginx:latest
+      ports:
+        - 81:80
+        - 1443:443
+      networks:
+        active_geo:
+          ipv4_address: 172.20.200.4
+###############
+#redis
+  redis:
+    image: redis:latest
+    ports:
+      - 6379:6379
+    networks:
+      active_geo:
+        ipv4_address: 172.20.200.3
+    
+
+##############
+# networks
+networks:
+  active_geo:
+    ipam:
+      config: 
+        - subnet: 172.20.200.0/24

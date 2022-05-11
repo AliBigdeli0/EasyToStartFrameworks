@@ -1,0 +1,42 @@
+version: '2'
+
+services:
+###############
+#client
+  go_client: 
+    container_name: go_client
+    build: 
+      context: .
+      dockerfile: ./Dockerfile_compile
+    expose:
+      - 8081
+    volumes:
+      - "../../:/app"
+    entrypoint: /bin/bash
+    command: "-c '/usr/bin/make client'"
+    networks:
+      active_geo:
+        ipv4_address: 172.20.200.8
+###############
+#server
+  go_server: 
+    container_name: go_server
+    build: 
+      context: .
+      dockerfile: ./Dockerfile_compile
+    expose:
+      - 8080
+    volumes:
+      - "../../:/app"
+    entrypoint: /bin/bash
+    command: "-c '/usr/bin/make server'"
+    networks:
+      active_geo:
+        ipv4_address: 172.20.200.7
+##############
+# networks
+networks:
+  active_geo:
+    ipam:
+      config: 
+        - subnet: 172.20.200.0/24

@@ -1,0 +1,73 @@
+version: '2'
+
+services:
+###############
+#mongodb 
+  mongodb1:
+    image : mongo
+    container_name: mongodb1
+    environment:
+    - PUID=1000
+    - PGID=1000
+    volumes:
+      - "../../third_party/database_vol_1:/data/db"
+    ports:
+      - 30001:27017
+    command: mongod --replSet activegeo_set 
+    networks:
+      active_geo:
+        ipv4_address: 172.20.200.30
+
+  mongodb2:
+    image : mongo
+    container_name: mongodb2
+    environment:
+    - PUID=1000
+    - PGID=1000
+    volumes:
+      - "../../third_party/database_vol_2:/data/db"
+    ports:
+      - 30002:27017
+    command: mongod --replSet activegeo_set 
+    networks:
+      active_geo:
+        ipv4_address: 172.20.200.31
+
+  mongodb3:
+    image : mongo
+    container_name: mongodb3
+    environment:
+    - PUID=1000
+    - PGID=1000
+    volumes:
+      - "../../third_party/database_vol_3:/data/db"
+    ports:
+      - 30003:27017
+    command: mongod --replSet activegeo_set 
+    networks:
+      active_geo:
+        ipv4_address: 172.20.200.32
+
+
+  postgresql: 
+    image: postgres
+    hostname: postgresql.local
+    ports:
+      - 5432
+    environment:
+      - POSTGRES_USER=postgres 
+      - POSTGRES_PASSWORD=mehran123
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    volumes:
+      - "../../third_party/postgresql:/var/lib/postgresql/data/pgdata"
+    networks:
+      active_geo:
+        ipv4_address: 172.20.200.33
+
+##############
+# networks
+networks:
+  active_geo:
+    ipam:
+      config: 
+        - subnet: 172.20.200.0/24
